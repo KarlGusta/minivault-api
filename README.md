@@ -1,6 +1,6 @@
 # MiniVault API
 
-A simple local REST API that simulates ModelVault's om-prem AI prompt/response system.
+A simple local REST API that simulates ModelVault's on-prem AI prompt/response system.
 
 ## How to Run
 
