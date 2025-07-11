@@ -1,6 +1,6 @@
 # MiniVault API
 
-A simple local REST API that simulates ModelVault's on-prem AI prompt/response system.
+A lightweight local REST API that simulates a core feature of ModelVault's product, which is receiving a prompt and returning a generated response using a local (LLM GPT-2). Supports word-by-word streaming and logs all interactions locally.   
 
 ## How to Run
 
