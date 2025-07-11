@@ -16,7 +16,7 @@ tokenizer = GPT2Tokenizer.from_pretrained("gpt2")
 model = GPT2LMHeadModel.from_pretrained("gpt2") 
 model.eval() # Set to evaluation mode
 
-LOG_FILE = "logs/log.jsonl"
+LOG_FILE = "logs/log.jsonl "
 
 class PromptRequest(BaseModel):
     prompt: str
