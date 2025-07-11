@@ -3,6 +3,7 @@ from fastapi.responses import StreamingResponse
 from pydantic import BaseModel
 from datetime import datetime
 from transformers import GPT2Tokenizer, GPT2LMHeadModel
+from datetime import datetime, timezone
 import torch
 import json
 import os
@@ -24,24 +25,31 @@ class PromptRequest(BaseModel):
 async def generate_response(request: PromptRequest):
     prompt = request.prompt
     
+    if not prompt.strip():
+        return {"error": "Prompt cannot be empty."}
+
     # Encode prompt and generate response using GPT-2
     input_ids = tokenizer.encode(prompt, return_tensors="pt")
+    attention_mask = torch.ones_like(input_ids) # Prevent warning
 
-    output_ids = model.generate(
-        input_ids,
-        max_length=100,
-        num_return_sequences=1,
-        do_sample=True,
-        top_k=50,
-        top_p=0.95,
-        temperature=0.9,
-    )
+    with torch.no_grad():
+        output_ids = model.generate(
+            input_ids,
+            attention_mask=attention_mask,
+            pad_token_id=tokenizer.eos_token_id, 
+            max_length=100,
+            num_return_sequences=1,
+            do_sample=True,
+            top_k=50,
+            top_p=0.95,
+            temperature=0.9,
+        )
 
     output_text = tokenizer.decode(output_ids[0], skip_special_tokens=True)
 
     # Log prompt and full response
     log_entry = {
-        "timestamp": datetime.utcnow().isoformat(),
+        "timestamp": datetime.now(timezone.utc).isoformat(),
         "prompt": prompt,
         "response": output_text
     }    
