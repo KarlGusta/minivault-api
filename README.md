@@ -41,7 +41,21 @@ uvicorn app:app --reload
 
 The API will be available at: `http://localhost:8000`
 
+### Usage
 
+Endpoint: `POST /generate`
+
+Request Body:
+
+```json
+{
+    "prompt": "Hello AI!"
+}
+```
+
+Response:
+
+Plain text streamed word-by-word
 
 ### Testing Options
 
@@ -57,8 +71,25 @@ Use the included Postman collection:
 Use the CLI tool:
 
 ```bash
-python cli.py "Hello AI!"
+python cli.py "Write a story about a robot in Kenya"
 ```
+
+#### Options 3: Run Tests
+
+pytest
+
+### Tradeoffs & Future Improvements
+
+#### Tradeoffs
+
+- Used GPT-2 for local inference. Realistic, but heavy for simple tasks.
+- JSONL file logging is lightweight but not queryable at scale.
+
+#### Ideas for Improvement
+
+- Support model switching (e.g. distilgpt2, Mistral via Ollama).
+- SQLite for logging.
+- Add Dockerfile for easier setup.
 
 Notes:
 - `logs/log.jsonl` will be created automatically after your first API call to `/generate`.
