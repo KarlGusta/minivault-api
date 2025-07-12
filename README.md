@@ -91,6 +91,14 @@ pytest
 - SQLite for logging.
 - Add Dockerfile for easier setup.
 
+### Postman Collection
+
+- A Postman collection (`postman_collection.json`) is included to test the `/generate` endpoint.
+- Simply import the collection and run it using Postman Runner.
+- The current version sends valid requests and confirms `200 OK` responses.
+
+(Optional test scripts can be added in Postman for automation.)
+
 Notes:
 - `logs/log.jsonl` will be created automatically after your first API call to `/generate`.
 - The virtual environment (`venv/`) is excluded - use `requirements.txt` to install dependencies.
